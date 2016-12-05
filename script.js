@@ -101,7 +101,7 @@
 				width: 10,
 				height: 10
 			}
-			if(collision(player,enemy,10))	rand = true;
+			if(collision(player,enemy))	rand = true;
 			rand = false;
 		}
 		enemies[id] = enemy;
@@ -199,11 +199,11 @@
 			giveAward();
 		}if(score > 5000 && numawards <= 2){//highschool
 			giveAward();
-		}if(score > 10000 && numawards <= 3){//bachlor's
+		}if(score > 10000 && numawards <= 3){//masters
 			giveAward();
-		}if(score > 20000 && numawards <= 4){//masters
+		}if(score > 20000 && numawards <= 4){//phd
 			giveAward();
-		}if(score > 40000 && numawards <= 5){//PHD
+		}if(score > 40000 && numawards <= 5){
 			giveAward();
 		}
 	}
@@ -253,11 +253,8 @@
 				case 4:
 					str += "Bacholor's";
 					break;
-				case 5:
-					str += "Masters";
-					break;
 				default:
-					str += "Doctorate";
+					str += "Masters/PHD";
 					break;
 			}
 			str += " degree with the score of: "+score;
@@ -289,7 +286,7 @@
 			height: 20
 		};
 	}
-	function collision(first, second,extra){
+	function collision(first, second){
 		return !(first.x > second.x + second.width || 
 			second.x > first.x + first.width ||
 			first.y > second.y + second.height ||
