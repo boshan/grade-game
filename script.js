@@ -16,17 +16,25 @@
 	var enemies = [];
 	var awards = [];
 	var bulletDelay = 0;
-	var enemyDelay = 0;
+	var enemyDelay = 20;
+	var enemyCurrentDelay = 0;
 	var gradeLevel = 3; // B - 4 : C - 3 : D - 2 : F - 1 : GameOver - 0
 	var numawards = 0;
 	var width = 500, height = 400, speed = 7, bulletSpeed = 10;
 	var score = 0;
+	var safeMargin = 60;
 
 	var player = {
 		x: 50,
 		y: 50,
 		width: 20,
 		height: 20
+	};
+	var playerSafe = {
+			x: player.x,
+			y: player.y,
+			width: player.width+200,
+			height: player.height+200
 	};
 
 	var cube = {
@@ -70,8 +78,8 @@
 		if(bulletDelay>0){
 			bulletDelay--;
 		}
-		if(enemyDelay>0){
-			enemyDelay--;
+		if(enemyCurrentDelay>0){
+			enemyCurrentDelay--;
 		}
 		if(keys[wKey] == true) player.y-=speed;
 		if(keys[sKey] == true) player.y+=speed;
@@ -82,7 +90,12 @@
 		if(keys[leftKey] == true && bulletDelay == 0) pellet(leftKey);
 		if(keys[rightKey] == true && bulletDelay == 0) pellet(rightKey);
 
-		if(enemyDelay == 0) makeEnemy();
+			playerSafe.x = player.x - 200/2;
+			playerSafe.y = player.y - 200/2;
+
+		if(enemyCurrentDelay == 0) makeEnemy();
+
+
 
 		if(player.x < 0) player.x = 0;
 		if(player.x >= width - player.width) player.x = width-player.width;
@@ -101,11 +114,10 @@
 				width: 10,
 				height: 10
 			}
-			if(collision(player,enemy))	rand = true;
-			rand = false;
+			if(!collision(playerSafe,enemy)) rand = false;
 		}
 		enemies[id] = enemy;
-		enemyDelay = 20;
+		enemyCurrentDelay = enemyDelay;
 		
 		for(var key in enemies){
 			context.drawImage(enemySprite,enemies[key].x,enemies[key].y);
@@ -126,6 +138,7 @@
 	function render(){
 		context.clearRect(0,0,width,height);
 		//BULLETS
+
 		for(var key in bullets){	
 			if(bullets[key].direct == leftKey){
 				bullets[key].x-=bulletSpeed;
@@ -144,6 +157,8 @@
 		}
 		//PLAYER
 		context.drawImage(playerSprite,player.x,player.y);
+		context.fillStyle = "FFFF00";
+
 		
 
 		//Enemy
@@ -220,6 +235,7 @@
 		}
 		awards[numawards] = award;
 		numawards++;
+		enemyDelay-=3;
 	}
 	function changeGrade(){
 		switch(gradeLevel){
@@ -253,8 +269,8 @@
 				case 4:
 					str += "Bacholor's";
 					break;
-				default:
-					str += "Masters/PHD";
+				case 5:
+					str += "PHD";
 					break;
 			}
 			str += " degree with the score of: "+score;
@@ -272,6 +288,8 @@
 		bullets = [];
 		awards = [];
 		numawards =0;
+		enemyDelay=20;
+		enemyCurrentDelay =0;
 		var player = {
 			x: 50,
 			y: 50,
