@@ -296,6 +296,7 @@
 			}
 			str2 += "degree with the score of: "+score.toLocaleString();
 		}else{
+			str = "Looks like you learned nothing...";
 		}
 		stopGame();
 		context.clearRect(0,0,width,height);
