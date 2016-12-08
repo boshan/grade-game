@@ -1,3 +1,14 @@
+body{
+	float:left;
+}
 #mainCanvas{
-	background-color: #FFF0F5;
+	background-color: #fff0f5;
+}
+#instructions p{
+	margin-left: 5px;
+	float: right;
+	display: inline-block;
+}
+#scores p{
+	margin:0;
 }

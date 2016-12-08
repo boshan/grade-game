@@ -11,6 +11,9 @@
 	var leftKey = 37;
 	var rightKey = 39;
 
+	var start = false;
+	var restart = false;
+	var stop = false;
 	var keys = [];
 	var bullets = [];
 	var enemies = [];
@@ -23,6 +26,7 @@
 	var width = 500, height = 400, speed = 7, bulletSpeed = 10;
 	var score = 0;
 	var safeMargin = 60;
+	var knowledgePerBook = 1000;
 
 	var player = {
 		x: 50,
@@ -61,7 +65,11 @@
 
 	window.addEventListener("keydown", function(e){
 		console.log(e.keyCode);
+		console.log(stop);
 		keys[e.keyCode] = true;
+		if(stop && e.keyCode == 32){
+			reset();
+		}
 	},false);
 
 	window.addEventListener("keyup",function(e){
@@ -71,8 +79,10 @@
 	
 	
 	function game(){
-		update();
-		render();
+		if(!stop){
+			update();
+			render();
+		}
 	}
 	function update(){
 		if(bulletDelay>0){
@@ -192,33 +202,37 @@
 					if(collision(enemies[key],player)){ enemies = []; processDamage(); break; };
 				}
 			}
-				for(var key in awards){
-					context.drawImage( awardSprite, 20 + awards[key].num * 30, 40);
-				}
+				
+				if(!stop){
+
+					for(var key in awards){
+						context.drawImage( awardSprite, 20 + awards[key].num * 30, 40);
+					}
 
 
-				//Book
-				context.drawImage(bookSprite,cube.x, cube.y);
-		//Score
-		context.fillStyle = "black";
-		context.font = "bold 30px helvetica";
-		context.fillText("Knowledge: " + score,10 ,30);
+					//Book
+					context.drawImage(bookSprite,cube.x, cube.y);
+					//Score
+					context.fillStyle = "black";
+					context.font = "bold 30px helvetica";
+					context.fillText("Knowledge: " + score,10 ,30);
+				};
 	}
 	function processPoint(){
-		score+= Math.round(Math.random() * 1000);
+		score+= Math.round(Math.random() * knowledgePerBook);
 		cube.x = Math.random() * (width - 20);
 		cube.y = Math.random() * (height - 20);
 		if(score > 500 && numawards <= 0){//elementaryschool
 			giveAward();
-		}if(score > 2000 && numawards <= 1){//middleschool
+		}if(score > 10000 && numawards <= 1){//middleschool
 			giveAward();
-		}if(score > 5000 && numawards <= 2){//highschool
+		}if(score > 25000 && numawards <= 2){//highschool
 			giveAward();
-		}if(score > 10000 && numawards <= 3){//masters
+		}if(score > 125000 && numawards <= 3){//Bachlor's
 			giveAward();
-		}if(score > 20000 && numawards <= 4){//phd
+		}if(score > 700000 && numawards <= 4){//Master's
 			giveAward();
-		}if(score > 40000 && numawards <= 5){
+		}if(score > 1500000 && numawards <= 5){//Doctorate's
 			giveAward();
 		}
 	}
@@ -233,6 +247,7 @@
 		var award = {
 			num: numawards
 		}
+		knowledgePerBook *= 3.14;
 		awards[numawards] = award;
 		numawards++;
 		enemyDelay-=3;
@@ -253,9 +268,13 @@
 				break;
 		}
 	}
-	function GameOver(){
+	function stopGame(){
+		stop = true;
+	}
+	function GameOver(){			
+		var str = "Congratulations! you earned your ";
+		var str2 = "";
 		if(numawards > 0){
-			var str = "Congratulations you earned your ";
 			switch(numawards){
 				case 1:		
 					str += "Elementary School";
@@ -270,17 +289,28 @@
 					str += "Bacholor's";
 					break;
 				case 5:
-					str += "PHD";
+					str += "Master's";
 					break;
+				default:
+					str+= "Doctorate's";
 			}
-			str += " degree with the score of: "+score;
-			alert(str);
+			str2 += "degree with the score of: "+score.toLocaleString();
 		}else{
-			alert("GameOver, you didn't learn much..");
 		}
-		reset();
+		stopGame();
+		context.clearRect(0,0,width,height);
+		context.fillStyle = "#4286f4";
+		context.fillRect(0,0,width,height);
+		context.font = "14px helvetica";		
+		context.fillStyle = "#ffffff";		
+		context.fillText(str,30,190);
+		context.fillText(str2,30,210);
+		context.fillText("Thanks for playing!",30, 250);
+		context.fillText("Press SPACE to play again",30, 270);
 	}
+
 	function reset(){
+		stop = false;
 		enemySprite.src = "B.png";
 		gradeLevel = 4;
 		score = 0;
@@ -290,6 +320,7 @@
 		numawards =0;
 		enemyDelay=20;
 		enemyCurrentDelay =0;
+		knowledgePerBook = 1000;
 		var player = {
 			x: 50,
 			y: 50,
@@ -310,7 +341,37 @@
 			first.y > second.y + second.height ||
 			second.y > first.y + first.height );
 	}
-	setInterval(function(){
-		game();
+	function title(){
+		window.addEventListener("keydown",function(e){
+			start = true;
+		});
+		context.fillStyle = "#4286f4";
+		context.fillRect(0,0,width,height);
+
+		var a = true;
+		var interval = setInterval(function(){
+			if(start == true){
+				clearInterval(interval);
+			}
+			else if(a == true){
+				context.font = "30px helvetica";		
+				context.fillStyle = "#ffffff";		
+				context.fillText("Press Any Key to Start",90,215);
+				a = false;
+			}else{
+				context.fillStyle = "#4286f4";
+				context.fillRect(0,0,width,height);
+				a = true;
+			}
+		},1000);
+	}
+
+
+	//FUNCTION CALLS
+	title();
+	setInterval(function(){	
+		if(start){
+			game();
+		}
 	},1000/30)
-	if(keys[38]) alert("hello");
+	
