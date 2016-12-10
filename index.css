@@ -16,18 +16,26 @@ body{
 #notecard{	
 	z-index: 0;
 	position:absolute;
-	background-color:#a1b9e0;
-	margin: 40px 0px 0 200px;
-}	
-input{
-	z-index: 2;
 	height:250px;
 	width:400px;
+	background-color:#a1b9e0;
+	margin: 40px 0px 0 200px;
 	background-color:#FFA664;
 	border: none;
 	font: 20px helvetica;
 	-webkit-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
 	-webkit-transform: rotate(-5deg);
+}	
+#gradeGameDesc{
+	position:relative;
+	text-align: center;
+	margin-top: 110px;
+	color:black;
+}
+#gradeGameDesc span{
+
+	font-family:Rockwell;
+	color:green;
 }
 #thumbtack{
 	position: relative;
