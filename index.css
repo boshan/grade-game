@@ -1,0 +1,45 @@
+body{
+	background-color: #a1b9e0;
+}
+/*Grade game bullitin*/
+#headerSpace{
+	height: 200px;
+	width: 100%;
+}
+#headerSpace h1{
+	text-align:center;
+}
+#gradeGame{
+	position: absolute;
+	margin: 0;
+}
+#notecard{	
+	z-index: 0;
+	position:absolute;
+	background-color:#a1b9e0;
+	margin: 40px 0px 0 200px;
+}	
+input{
+	z-index: 2;
+	height:250px;
+	width:400px;
+	background-color:#FFA664;
+	border: none;
+	font: 20px helvetica;
+	-webkit-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+	-webkit-transform: rotate(-5deg);
+}
+#thumbtack{
+	position: relative;
+	/*margin: 340px 0px 0 210px;*/
+	margin: 0 0 0 350;
+	z-index: 1;
+	-webkit-transform: rotate(-5deg);
+
+}
+#text{
+	z-index: 100;
+}
+a:hover{
+	cursor:default;
+}
