@@ -246,8 +246,8 @@
 	function giveAward(){
 		var award = {
 			num: numawards
-		}
-		knowledgePerBook *= 3.14;
+		}3.14;
+		knowledgePerBook *= 
 		awards[numawards] = award;
 		numawards++;
 		enemyDelay-=3;
@@ -286,7 +286,7 @@
 					str += "High School";
 					break;
 				case 4:
-					str += "Bacholor's";
+					str += "Bachelor's";
 					break;
 				case 5:
 					str += "Master's";

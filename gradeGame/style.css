@@ -9,6 +9,15 @@ body{
 	float: right;
 	display: inline-block;
 }
+#scores{
+	float:left;
+}
 #scores p{
 	margin:0;
+}
+#objective{
+	border-style: groove;
+	padding:5px;
+	position:relative;
+	float:right;
 }
