@@ -17,7 +17,7 @@ body{
 }
 #objective{
 	border-style: groove;
-	padding:5px;
+	padding:5px 10 10 10;
 	position:relative;
 	float:right;
 }
