@@ -246,8 +246,8 @@
 	function giveAward(){
 		var award = {
 			num: numawards
-		}3.14;
-		knowledgePerBook *= 
+		}
+		knowledgePerBook *= 3.14;
 		awards[numawards] = award;
 		numawards++;
 		enemyDelay-=3;
