@@ -1,0 +1,31 @@
+{
+  "title": "bo",
+  "name": "noh",
+  "version": "1.0.0",
+  "description": "Testing heroku",
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "pandas",
+    "jupyter-notebook",
+    "single-page-app",
+    "airbnb"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boshan/boshan.github.io.git"
+  },
+  "author": "Bohan Shan",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "*",
+    "jquery": "^3.2.1",
+    "jquery.easing": "^1.4.1",
+    "socket.io": "*",
+    "express": "*"
+  },
+  "devDependencies": {
+    "browser-sync": "2.18.13",
+    "gulp": "^3.9.1"
+  }
+}
